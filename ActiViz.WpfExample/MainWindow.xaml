@@ -9,7 +9,6 @@
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=vm:MainWindowViewModel, IsDesignTimeCreatable=False}"
         Title="MainWindow" Height="450" Width="800" 
-        Closing="Window_Closing"
         >
     <Window.Resources>
         <Style TargetType="TextBox">
@@ -22,10 +21,6 @@
             <MenuItem Header="Файл">
                 <MenuItem Header="Открыть"
                           Command="{Binding OpenCommand}"
-                          CommandParameter="{Binding ElementName=_rendererContainer}"
-                          />
-                <MenuItem Header="Параллелепипед"
-                          Command="{Binding ParallelepipedCommand}"
                           CommandParameter="{Binding ElementName=_rendererContainer}"
                           />
                 <MenuItem Header="Очистить окно"
@@ -43,6 +38,7 @@
             <ToolBar>
                 <Button ToolTip="Открыть"
                         Command="{Binding OpenCommand}"
+                        CommandParameter="{Binding ElementName=_rendererContainer}"
                         >
                     <Image Source="Icons/Open.ico"/>
                 </Button>
@@ -90,60 +86,9 @@
                     <Image Source="Icons/Isometric.ico"/>
                 </Button>
             </ToolBar>
-
         </ToolBarTray>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" MinWidth="150"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-
-            <Grid IsEnabled="{Binding CubeDesignMode}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-
-                <Label Content="Длина" />
-                <TextBox Text="{Binding CubeLength}" 
-                     Grid.Column="1"
-                     />
-
-                <Label Content="Ширина"
-                   Grid.Row="1"
-                   />
-                <TextBox Text="{Binding CubeWidth}" 
-                     Grid.Row="1"
-                     Grid.Column="1"
-                     />
-
-                <Label Content="Высота"
-                   Grid.Row="2"
-                   />
-                <TextBox Text="{Binding CubeHeight}" 
-                     Grid.Row="2"
-                     Grid.Column="1" />
-
-            </Grid>
-            <GridSplitter Grid.Column="1"
-                          Width="5"
-                          VerticalAlignment="Stretch"
-                          HorizontalAlignment="Center"
-                          />
-            <WindowsFormsHost Grid.Column="2" x:Name="_rendererContainer">
-                <vtk:RenderWindowControl x:Name="renderWindow" Load="renderWindow_Load"/>
-            </WindowsFormsHost>
-        </Grid>
+        <WindowsFormsHost x:Name="_rendererContainer">
+            <vtk:RenderWindowControl x:Name="renderWindow" Load="renderWindow_Load"/>
+        </WindowsFormsHost>
     </DockPanel>
 </Window>

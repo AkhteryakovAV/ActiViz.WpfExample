@@ -39,12 +39,5 @@ namespace ActiViz.WpfExample
             }
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            //if (DataContext is MainWindowViewModel viewModel)
-            //{
-            //    viewModel.Dispose();
-            //}
-        }
     }
 }
