@@ -29,6 +29,7 @@ namespace ActiViz.WpfExample.ViewModels
         private RelayCommand _openCommand;
         private RelayCommand _parallelepipedCommand;
         private RelayCommand _clearCommand;
+        private RelayCommand _rotateCommand;
 
         private double _cubeLength = 1.0;
         private double _cubeWidth = 1.5;
@@ -173,6 +174,10 @@ namespace ActiViz.WpfExample.ViewModels
             //_renderer.Clear();
             //_renderWindow.RemoveRenderer(_renderer);
         }));
+        public RelayCommand RotateCommand => _rotateCommand ?? (_rotateCommand = new RelayCommand(parametr =>
+        {
+            Rotate();
+        }));
 
         private void ReadSTL(string filePath)
         {
@@ -257,6 +262,36 @@ namespace ActiViz.WpfExample.ViewModels
             camera.SetViewUp(0, 1, 0);
             ZoomToFit();
         }
+        private void Rotate()
+        {
+            vtkAnimationScene animationScene = vtkAnimationScene.New();
+            animationScene.SetModeToRealTime();
+            animationScene.SetLoop(0);
+            animationScene.SetFrameRate(5);
+            animationScene.SetStartTime(0);
+            animationScene.SetEndTime(20);
+            //scene->AddObserver(vtkCommand::AnimationCueTickEvent, renWin.GetPointer(), &vtkWindow::Render);
+
+            vtkAnimationCue animationCue = vtkAnimationCue.New();
+            animationCue.SetStartTime(0);
+            animationCue.SetEndTime(20);
+            animationScene.AddCue(animationCue);
+
+            vtkCamera camera = _renderer.GetActiveCamera();
+            vtkCameraActor cameraActor = vtkCameraActor.New();
+            cameraActor.SetCamera(camera);
+
+            animationCue.StartAnimationCueEvt += AnimationCue_StartAnimationCueEvt;
+
+            animationScene.Play();
+            animationScene.Stop();
+        }
+
+        private void AnimationCue_StartAnimationCueEvt(vtkObject sender, vtkObjectEventArgs e)
+        {
+           
+        }
+
         private void SetTopBottom(bool top)
         {
             int delta = top ? 1 : -1;

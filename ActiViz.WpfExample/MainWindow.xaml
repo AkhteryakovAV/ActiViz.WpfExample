@@ -86,6 +86,13 @@
                     <Image Source="Icons/Isometric.ico"/>
                 </Button>
             </ToolBar>
+            <ToolBar>
+                <Button ToolTip="Вращать"
+                        Command="{Binding RotateCommand}"
+                        >
+                    <Image Source="Icons/Rotate.ico"/>
+                </Button>
+            </ToolBar>
         </ToolBarTray>
         <WindowsFormsHost x:Name="_rendererContainer">
             <vtk:RenderWindowControl x:Name="renderWindow" Load="renderWindow_Load"/>

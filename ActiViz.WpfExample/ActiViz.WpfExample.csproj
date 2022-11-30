@@ -129,5 +129,8 @@
   <ItemGroup>
     <Resource Include="Icons\Open.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\Rotate.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
